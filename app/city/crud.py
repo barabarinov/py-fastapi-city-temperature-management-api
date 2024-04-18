@@ -48,8 +48,7 @@ async def update_city(
     return updated_city
 
 
-async def delete_city(db: AsyncSession, city_id: int) -> bool:
+async def delete_city(db: AsyncSession, city_id: int) -> None:
     query = delete(City).where(City.id == city_id)
     await db.execute(query)
     await db.commit()
-    return True
