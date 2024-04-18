@@ -33,7 +33,7 @@ async def update_all_temperatures(db: AsyncSession) -> dict:
     return {"message": "Temperature updated successfully!"}
 
 
-async def get_temperatures_by_city(db: AsyncSession, city: City) -> Temperature | None:
+async def get_temperatures_by_city(db: AsyncSession, city: City) -> Temperature:
     query = select(Temperature).where(Temperature.city_id == city.id)
     temperature_instance = await db.execute(query)
 
