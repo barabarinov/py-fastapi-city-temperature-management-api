@@ -15,7 +15,7 @@ async def read_temperatures(
     city_id: int = None,
     db: AsyncSession = Depends(get_db),
 ) -> Sequence[schemas.Temperature]:
-    return crud.get_all_temperatures(db=db, city_id=city_id)
+    return await crud.get_all_temperatures(db=db, city_id=city_id)
 
 
 @router.post("/temperatures/update", status_code=201)

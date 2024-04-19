@@ -17,12 +17,12 @@ async def create_city(city: schemas.CityCreate, db: AsyncSession = Depends(get_d
 
 @router.get("/cities", response_model=list[schemas.City])
 async def read_cities(db: AsyncSession = Depends(get_db)) -> Sequence[schemas.City]:
-    return crud.get_cities(db=db)
+    return await crud.get_cities(db=db)
 
 
 @router.get("/cities/{city_id}", response_model=schemas.City)
 async def read_city(city_id: int, db: AsyncSession = Depends(get_db)) -> schemas.City:
-    city = crud.get_city(db=db, city_id=city_id)
+    city = await crud.get_city(db=db, city_id=city_id)
     if city is None:
         raise HTTPException(status_code=404, detail="City not found")
     return city
@@ -36,7 +36,7 @@ async def update_city(
 ) -> schemas.City:
     if not await crud.get_city(db=db, city_id=city_id):
         raise HTTPException(status_code=404, detail="City not found")
-    return crud.update_city(db=db, city_id=city_id, city=city)
+    return await crud.update_city(db=db, city_id=city_id, city=city)
 
 
 @router.delete("/cities/{city_id}", response_model=204)
